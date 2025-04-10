@@ -3,13 +3,13 @@ from .models import Teacher
 
 class IsAuthenticatedOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:  # GET requests
+        if request.method in permissions.SAFE_METHODS:
             return True
         return request.user.is_authenticated
 
 class IsTeacher(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:  # Allow read for all
+        if request.method in permissions.SAFE_METHODS:
             return True
         return request.user.is_authenticated and Teacher.objects.filter(user=request.user).exists()
 
